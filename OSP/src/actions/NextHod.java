@@ -14,6 +14,7 @@ public class NextHod extends GameWindow {
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
 			session.SetPos(session.GetPos() + session.GetPrihodPos());
+			session.SetHod(session.GetHod() + 1);
             if ((session.GetPrihodPos() < 0) && (Math.abs(session.GetPrihodPos()) > session.GetPos()))
             {
                 session.SetPos(0);
@@ -55,6 +56,7 @@ public class NextHod extends GameWindow {
         newFrame.remove(top);
         newFrame.revalidate();
         newFrame.repaint();
+        newFrame.setLayout(new BorderLayout());
         try {
 			top = getTopPanel();
 		} catch (FontFormatException | IOException e) {
@@ -62,7 +64,9 @@ public class NextHod extends GameWindow {
 			e.printStackTrace();
 		}
         newFrame.add(top, BorderLayout.NORTH);
+        newFrame.revalidate();
 		}
+        
 
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
