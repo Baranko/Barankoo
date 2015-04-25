@@ -8,10 +8,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -183,20 +187,39 @@ public class Building  {
 		buildingWindow.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		JPanel alt = getAlt();
+		alt.setToolTipText("Стоимость: 3 припаса. Доход: +2 припаса в ход, -5 послушников в ход.");
 		JPanel mag = getMag();
+		mag.setToolTipText("Стоимость: 3 припаса. Доход: +10 послушников в ход, -1 припасов в ход.");
 		JPanel pam = getPam();
+		pam.setToolTipText("Стоимость: 5 припасов. Доход: +5 послушников в ход, -1 припасов в ход, +1 мощи в ход.");
 		JPanel uch = getUch();
+		uch.setToolTipText("Стоимость: 6 припасов. Доход: +5 припасов в ход, -5 послушников в ход, -1 мощи в ход.");
 		JPanel amfi = getAmfi();
+		amfi.setToolTipText("Стоимость: 10 припасов. Доход: +11 послушников в ход, -6 припасов в ход, +1 мощи в ход.");
 		JPanel pagod = getPagod();
+		pagod.setToolTipText("Стоимость: 12 припасов. Доход: +7 припасов в ход, -7 послушников в ход, -2 мощи в ход.");
 		JPanel cirk = getCirk();
+		cirk.setToolTipText("Стоимость: 13 припасов. Доход: +10 послушников в ход, -6 припасов в ход, +3 мощи в ход.");
 		JPanel ferma = getFerma();
+		ferma.setToolTipText("Стоимость: 15 припасов. Доход: +9 припасов в ход, -7 послушников в ход, +1 мощь в ход.");
 		JPanel radio = getRadio();
+		radio.setToolTipText("Стоимость: 18 припасов. Доход: значительно увеличивает приход послушников, +5 мощь в ход.");
 		JPanel zavod = getZavod();
-		c.gridx = GridBagConstraints.REMAINDER;
+		zavod.setToolTipText("Стоимость: 22 припасов. Доход: значительно увеличивает приход припасов, +5 мощь в ход.");
+		c.gridx = 0;
 		c.gridy = 0;
 		JLabel lvl1 = new JLabel("Уровень 1");
 		lvl1.setFont(titleFont);
 		buildingWindow.add(lvl1, c);
+		c.gridx = 1;	
+		JButton exit = new JButton();
+		exit.setIcon(new ImageIcon("extit.png"));
+		exit.setBorder(BorderFactory.createEmptyBorder());
+		exit.setContentAreaFilled(false);
+		exit.setBorderPainted(false);
+		exit.addActionListener(new Exit());
+		buildingWindow.add(exit,c);
+		c.gridx = 0;
 		c.gridy = 1;
 		buildingWindow.add(alt, c);
 		c.gridx = 1;
@@ -242,5 +265,10 @@ public class Building  {
 		buildingWindow.toFront();
 		buildingWindow.setAlwaysOnTop(true);
 		buildingWindow.setVisible(true);
+	}
+	static class Exit implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			buildingWindow.dispose();
+		}
 	}
 }

@@ -279,7 +279,6 @@ public class GameWindow extends Menu {
 		newFrame.add(getLeftPanel(), BorderLayout.WEST);
 		newFrame.add(getBottomPanel(), BorderLayout.SOUTH);
 		newFrame.add(getCenterPanel(), BorderLayout.CENTER);
-		
 		newFrame.pack();
         newFrame.setVisible(true);
 	}
