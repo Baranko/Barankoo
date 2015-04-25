@@ -1,18 +1,17 @@
 package windows;
 
-import java.awt.AlphaComposite;
+
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class StartWindow {
 
@@ -24,10 +23,13 @@ public class StartWindow {
 		startGame.setIcon(new ImageIcon(image));
 		startGame.setContentAreaFilled(false);
 		startGame.setBorderPainted(false);
+		startGame.addActionListener(new Choice());
 		image = Toolkit.getDefaultToolkit().createImage("startGameRoll.png");
-		startGame.setRolloverIcon(new ImageIcon(image));
 		pane.add(startGame, BorderLayout.CENTER);
 	}
-	
-
+	static class Choice implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+	        Chooser.openChooser();
+	    }
+	}
 }

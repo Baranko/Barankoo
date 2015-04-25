@@ -7,30 +7,31 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.Toolkit;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JWindow;
+import javax.swing.JProgressBar;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-public class GameWindow {
+import math.GOD;
+import actions.Menu;
+import actions.NextHod;
+
+public class GameWindow extends Menu {
 	
-	
+	public static JFrame newFrame;
+	public static GOD session;
+	public static JPanel top;
 	
 	public static JPanel getTopPanel() throws FontFormatException, IOException {
 		JPanel panel = new JPanel();
@@ -49,7 +50,8 @@ public class GameWindow {
 		JLabel posImage = new JLabel();
 		posImage.setIcon(new ImageIcon(image));
 		firstPanel.add(posImage);
-		JLabel posLabel = new JLabel("3"); //Suda zasunut' "pos' nado
+		String pos = Integer.toString(session.GetPos());
+		JLabel posLabel = new JLabel(pos); //Suda zasunut' "pos' nado
 		posLabel.setFont(titleFont);
 		firstPanel.add(posLabel);
 		
@@ -59,7 +61,8 @@ public class GameWindow {
 		JLabel hodImage = new JLabel();
 		hodImage.setIcon(new ImageIcon(image));
 		firstPanel.add(hodImage);
-		JLabel hodLabel = new JLabel("3"); //A suda "hod"
+		String hod = Integer.toString(session.GetHod());
+		JLabel hodLabel = new JLabel(hod); //A suda "hod"
 		hodLabel.setFont(titleFont);
 		firstPanel.add(hodLabel);
 		
@@ -69,7 +72,9 @@ public class GameWindow {
 		JLabel resImage = new JLabel();
 		resImage.setIcon(new ImageIcon(image));
 		firstPanel.add(resImage);
-		JLabel resLabel = new JLabel("3"); //Zasun' "res"
+	
+		String res = Integer.toString(session.GetRes());
+		JLabel resLabel = new JLabel(res); //Zasun' "res"
 		resLabel.setFont(titleFont);
 		firstPanel.add(resLabel);
 		
@@ -79,7 +84,8 @@ public class GameWindow {
 		JLabel powImage = new JLabel();
 		powImage.setIcon(new ImageIcon(image));
 		firstPanel.add(powImage);
-		JLabel powLabel = new JLabel("3"); //Zasun' "res"
+		String pow = Integer.toString(session.GetPow());
+		JLabel powLabel = new JLabel(pow); //Zasun' "res"
 		powLabel.setFont(titleFont);
 		firstPanel.add(powLabel);
 		
@@ -94,13 +100,14 @@ public class GameWindow {
 		secondPanel.setLayout(new BorderLayout());
 		
 		Image image = Toolkit.getDefaultToolkit().createImage("help.png");
-		JLabel helpImage = new JLabel();
-		helpImage.setIcon(new ImageIcon(image));
-		secondPanel.add(helpImage, BorderLayout.WEST);
+		JLabel helpButton = new JLabel();
+		helpButton.setIcon(new ImageIcon(image));
+		secondPanel.add(helpButton, BorderLayout.WEST);
 		
 		image = Toolkit.getDefaultToolkit().createImage("menu.png");
 		JLabel menuImage = new JLabel();
 		menuImage.setIcon(new ImageIcon(image));
+		menuImage.addMouseListener(new OpenMenu());
 		secondPanel.add(menuImage, BorderLayout.EAST);
 		
 		secondPanel.setBackground(new Color(0,0,0,0));
@@ -198,6 +205,7 @@ public class GameWindow {
 		
 		JLabel nextButton = new JLabel();
 		nextButton.setIcon(new ImageIcon("next.png"));
+		nextButton.addMouseListener(new NextHod.nextMove());
 
 		panel.add(nextButton);
 		
@@ -223,37 +231,55 @@ public class GameWindow {
 		c.gridy = 1;
 		
 		JLabel ava = new JLabel();
-		ava.setIcon(new ImageIcon("doge.png"));
+		ava.setIcon(new ImageIcon("doge1.png"));
 		panel.add(ava, c);
 		
 		panel.setBackground(new Color(0,0,0,0));
+		
+		c.gridx = 0;
+		c.gridy = 2;
+		
+		JProgressBar progressBar = new JProgressBar();
+		progressBar.setStringPainted(true);
+		progressBar.setMinimum(0);
+		progressBar.setMaximum(100);
+		progressBar.setValue(30); //Zaprashivai suda nekoe znachenie v % neobhodimoe dlya poluchenia urovnya
+		progressBar.setForeground(Color.GREEN);
+
+	
+		UIManager.put("progressBar.background", Color.ORANGE);
+		UIManager.put("progressBar.foreground", Color.BLUE);
+		UIManager.put("progressBar.selectionBackground", Color.RED);
+		UIManager.put("progressBar.selectionForeground", Color.GREEN);
+		panel.add(progressBar, c);
+
 		
 		return panel;
 	}
 	
 	
 	
-	public static void main(String[] args) throws FontFormatException, IOException {
+	public static void updateFrame(JFrame frame, GOD god) throws FontFormatException, IOException {
 		Image image = Toolkit.getDefaultToolkit().createImage("back.jpg");
-		
-		JFrame frame = new JFrame();
-		
-		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		frame.dispose();
+
+		session = god;
+		newFrame = new JFrame();
+		newFrame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		JLabel contentPane = new JLabel();
 		contentPane.setIcon(new ImageIcon(image));
 		contentPane.setLayout( new BorderLayout() );
-		frame.setContentPane(contentPane);
+		newFrame.setContentPane(contentPane);
+		top = getTopPanel();
+		newFrame.setLayout(new BorderLayout());
+		newFrame.add(top, BorderLayout.NORTH);
+		newFrame.add(getRightPanel(), BorderLayout.EAST);
+		newFrame.add(getLeftPanel(), BorderLayout.WEST);
+		newFrame.add(getBottomPanel(), BorderLayout.SOUTH);
+		newFrame.add(getCenterPanel(), BorderLayout.CENTER);
 		
-		frame.setLayout(new BorderLayout());
-		frame.add(getTopPanel(), BorderLayout.NORTH);
-		frame.add(getRightPanel(), BorderLayout.EAST);
-		frame.add(getLeftPanel(), BorderLayout.WEST);
-		frame.add(getBottomPanel(), BorderLayout.SOUTH);
-		frame.add(getCenterPanel(), BorderLayout.CENTER);
-		
-		
-        frame.setVisible(true);
+		newFrame.pack();
+        newFrame.setVisible(true);
 	}
 	
 }
