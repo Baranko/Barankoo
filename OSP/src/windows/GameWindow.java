@@ -24,6 +24,7 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import math.GOD;
+import actions.Build;
 import actions.Menu;
 import actions.NextHod;
 
@@ -73,7 +74,7 @@ public class GameWindow extends Menu {
 		resImage.setIcon(new ImageIcon(image));
 		firstPanel.add(resImage);
 	
-		String res = Integer.toString(session.GetRes());
+		String res = Double.toString(session.GetRes());
 		JLabel resLabel = new JLabel(res); //Zasun' "res"
 		resLabel.setFont(titleFont);
 		firstPanel.add(resLabel);
@@ -193,6 +194,7 @@ public class GameWindow extends Menu {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		JLabel buildButton = new JLabel();
 		buildButton.setIcon(new ImageIcon("build.png"));
+		buildButton.addMouseListener(new Build.openBuild() );
 		panel.add(Box.createRigidArea(new Dimension(100,0)));
 		panel.add(buildButton);
 		panel.add(Box.createRigidArea(new Dimension(200,0)));

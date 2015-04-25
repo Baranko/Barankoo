@@ -24,7 +24,6 @@ public class StartWindow {
 		startGame.setContentAreaFilled(false);
 		startGame.setBorderPainted(false);
 		startGame.addActionListener(new Choice());
-		image = Toolkit.getDefaultToolkit().createImage("startGameRoll.png");
 		pane.add(startGame, BorderLayout.CENTER);
 	}
 	static class Choice implements ActionListener {

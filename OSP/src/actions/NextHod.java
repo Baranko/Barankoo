@@ -14,6 +14,7 @@ public class NextHod extends GameWindow {
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
 			session.SetPos(session.GetPos() + session.GetPrihodPos());
+			session.SetPow(session.GetPow() + session.GetPrihodPow()); 
 			session.SetHod(session.GetHod() + 1);
             if ((session.GetPrihodPos() < 0) && (Math.abs(session.GetPrihodPos()) > session.GetPos()))
             {
@@ -29,19 +30,19 @@ public class NextHod extends GameWindow {
 
                 session.SetLvl(2);
 
-                if ((session.GetPos() > 40) && (session.GetRes() > 20))
+                if ((session.GetPos() > 60) && (session.GetRes() > 20))
 
                 {
 
                     session.SetLvl(3);
 
-                    if ((session.GetPos() > 50) && (session.GetRes() > 30))
+                    if ((session.GetPos() > 120) && (session.GetRes() > 40))
 
                     {
 
                         session.SetLvl(4);
 
-                        if ((session.GetPos() > 60) && (session.GetRes() > 40))
+                        if ((session.GetPos() > 240) && (session.GetRes() > 80))
 
                         {
 

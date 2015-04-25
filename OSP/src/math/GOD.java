@@ -4,7 +4,7 @@ public class GOD {
 		
 		private int clas;
 		private int pos = 1;
-		private int res = 5;
+		private double res = 5;
 		private Image dvd;
 		private int pow;
 		private int exp;
@@ -14,8 +14,8 @@ public class GOD {
 		private String name;
 		private int edd;
 		private int prihodpos = 10;
-		private int prihodres = 2;
-		private int prihodpow;
+		private double prihodres = 2;
+		private int prihodpow = 1;
 		private int prihodexp;
 		
 		private int counts = 0; //Shop
@@ -28,8 +28,8 @@ public class GOD {
 		public void SetPos(int pos){this.pos = pos;}
 		public int GetPos(){return pos;}
 		
-		public void SetRes(int res){this.res = res;}
-		public int GetRes(){return res;}
+		public void SetRes(double res){this.res = res;}
+		public double GetRes(){return res;}
 		
 		public void SetDvd(Image dvd){this.dvd = dvd;}
 		public Image GetDvd(){return dvd;}
@@ -59,7 +59,7 @@ public class GOD {
 		public int GetPrihodPos(){return prihodpos;}
 		
 		public void SetPrihodRes(int prihodres){this.prihodres = prihodres;}
-		public int GetPrihodRes(){return prihodres;}
+		public double GetPrihodRes(){return prihodres;}
 		
 		public void SetPrihodPow(int prihodpow){this.prihodpow = prihodpow;}
 		public int GetPrihodPow(){return prihodpow;}
