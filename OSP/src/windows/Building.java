@@ -21,7 +21,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JWindow;
 
-public class Building  {
+import actions.Stroy;
+
+public class Building extends GameWindow {
 	
 	static JWindow buildingWindow;
 	
@@ -30,6 +32,7 @@ public class Building  {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		JLabel img = new JLabel();
+		img.addMouseListener(new Stroy.AltPlus());
 		img.setIcon(new ImageIcon("alt.png"));
 		
 		JLabel header = new JLabel("Алтарь");
@@ -45,6 +48,7 @@ public class Building  {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		JLabel img = new JLabel();
+		img.addMouseListener(new Stroy.MagPlus());
 		img.setIcon(new ImageIcon("mag.png"));
 		
 		JLabel header = new JLabel("Рынок");
@@ -60,6 +64,7 @@ public class Building  {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		JLabel img = new JLabel();
+		img.addMouseListener(new Stroy.PamPlus());
 		img.setIcon(new ImageIcon("pam.png"));
 		
 		JLabel header = new JLabel("Памятник");
@@ -75,6 +80,7 @@ public class Building  {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		JLabel img = new JLabel();
+		img.addMouseListener(new Stroy.UchPlus());
 		img.setIcon(new ImageIcon("uch.png"));
 		
 		JLabel header = new JLabel("ШРЕН");
@@ -90,6 +96,7 @@ public class Building  {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		JLabel img = new JLabel();
+		img.addMouseListener(new Stroy.RadioPlus());
 		img.setIcon(new ImageIcon("radio.png"));
 		
 		JLabel header = new JLabel("Радиовышка");
@@ -105,6 +112,7 @@ public class Building  {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		JLabel img = new JLabel();
+		img.addMouseListener(new Stroy.AmfiPlus());
 		img.setIcon(new ImageIcon("amfi.png"));
 		
 		JLabel header = new JLabel("Амфитеатр");
@@ -120,6 +128,7 @@ public class Building  {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		JLabel img = new JLabel();
+		img.addMouseListener(new Stroy.PagodPlus());
 		img.setIcon(new ImageIcon("pagod.png"));
 		
 		JLabel header = new JLabel("Пагода");
@@ -135,6 +144,7 @@ public class Building  {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		JLabel img = new JLabel();
+		img.addMouseListener(new Stroy.FermaPlus());
 		img.setIcon(new ImageIcon("ferma.png"));
 		
 		JLabel header = new JLabel("Ферма");
@@ -150,6 +160,7 @@ public class Building  {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		JLabel img = new JLabel();
+		img.addMouseListener(new Stroy.CirkPlus());
 		img.setIcon(new ImageIcon("cirk.png"));
 		
 		JLabel header = new JLabel("Цирк");
@@ -165,6 +176,7 @@ public class Building  {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		JLabel img = new JLabel();
+		img.addMouseListener(new Stroy.ZavodPlus());
 		img.setIcon(new ImageIcon("zavod.png"));
 		
 		JLabel header = new JLabel("Завод");
@@ -206,6 +218,26 @@ public class Building  {
 		radio.setToolTipText("Стоимость: 18 припасов. Доход: значительно увеличивает приход послушников, +5 мощь в ход.");
 		JPanel zavod = getZavod();
 		zavod.setToolTipText("Стоимость: 22 припасов. Доход: значительно увеличивает приход припасов, +5 мощь в ход.");
+		if (session.GetLvl()<5)
+		{
+			zavod.setVisible(false);
+			radio.setVisible(false);
+			if (session.GetLvl()<4)
+			{
+				ferma.setVisible(false);
+				cirk.setVisible(false);
+				if (session.GetLvl()<3) 
+				{
+					pagod.setVisible(false);
+					amfi.setVisible(false);
+					if (session.GetLvl()<2)
+					{
+						uch.setVisible(false);
+						pam.setVisible(false);
+					}
+				}
+			}
+		}
 		c.gridx = 0;
 		c.gridy = 0;
 		JLabel lvl1 = new JLabel("Уровень 1");
